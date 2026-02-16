@@ -1,0 +1,59 @@
+{
+  "theme": {
+    "primaryColor": "#7c3aed",
+    "secondaryColor": "#f3f4f6",
+    "backgroundColor": "#ffffff"
+  },
+
+  "business": {
+    "name": "Luna Moda Urbana",
+    "whatsapp": "5491165035037",
+    "address": "Av. Siempre Viva 1234 - Barrio Centro",
+    "hours": "Lunes a Sábado 10 a 19 hs",
+    "instagramHandle": "lunamodaurbana"
+  },
+
+  "sections": {
+    "products": true,
+    "about": true,
+    "info": true
+  },
+
+  "hero": {
+    "title": "Lo que te gusta, al mejor precio 💜",
+    "subtitle": "Prendas cómodas, modernas y listas para usar.",
+    "buttonText": "Consultar por WhatsApp",
+    "whatsappMessage": "Hola! Quiero consultar por las prendas disponibles 😊"
+  },
+
+  "about": {
+    "text": "Somos un emprendimiento del barrio que ofrece prendas modernas a precios accesibles. Trabajamos con stock limitado y atención personalizada por WhatsApp."
+  },
+
+  "products": [
+    {
+      "name": "Conjunto Deportivo Soft",
+      "description": "Ideal para estar cómoda sin perder estilo.",
+      "price": "22000",
+      "image": "https://picsum.photos/400/300?random=1",
+      "buttonText": "Consultar este conjunto",
+      "whatsappMessage": "Hola! Quiero consultar por el Conjunto Deportivo Soft 😊"
+    },
+    {
+      "name": "Remera Básica Premium",
+      "description": "Tela suave, combina con todo.",
+      "price": "9500",
+      "image": "https://picsum.photos/400/300?random=2",
+      "buttonText": "Consultar talle disponible",
+      "whatsappMessage": "Hola! Quiero consultar por la Remera Básica Premium 😊"
+    },
+    {
+      "name": "Jean Wide Leg",
+      "description": "Tiro alto, súper cómodo y tendencia.",
+      "price": "28000",
+      "image": "https://picsum.photos/400/300?random=3",
+      "buttonText": "Consultar este jean",
+      "whatsappMessage": "Hola! Quiero consultar por el Jean Wide Leg 😊"
+    }
+  ]
+}
