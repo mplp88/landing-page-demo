@@ -16,7 +16,8 @@
   "sections": {
     "products": true,
     "about": true,
-    "info": true
+    "info": true,
+    "map": true
   },
 
   "hero": {
@@ -55,5 +56,11 @@
       "buttonText": "Consultar este jean",
       "whatsappMessage": "Hola! Quiero consultar por el Jean Wide Leg 😊"
     }
-  ]
+  ],
+
+  "map": {
+    "latitude": -34.6037,
+    "longitude": -58.3816,
+    "zoom": 15
+  }
 }

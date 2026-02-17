@@ -4,29 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title id="pageTitle">Tienda</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <script>
-      // Configuración dinámica de colores (se ejecuta antes del render)
-      fetch('data.json')
-        .then((res) => res.json())
-        .then((data) => {
-          tailwind.config = {
-            theme: {
-              extend: {
-                colors: {
-                  primary: data.theme.primaryColor,
-                  secondary: data.theme.secondaryColor,
-                  background: data.theme.backgroundColor,
-                },
-              },
-            },
-          };
-        });
-    </script>
+    <!-- Leaflet CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+
+    <style>
+      #map {
+        height: 350px;
+        border-radius: 12px;
+      }
+    </style>
   </head>
 
-  <body class="bg-background text-gray-800">
+  <body class="bg-white text-gray-800">
     <!-- HERO -->
     <section id="heroSection" class="py-16 text-center">
       <h1 id="heroTitle" class="text-3xl md:text-4xl font-bold mb-4"></h1>
@@ -34,7 +29,7 @@
       <a
         id="heroButton"
         target="_blank"
-        class="bg-primary text-white px-6 py-3 rounded-lg inline-block"
+        class="bg-black text-white px-6 py-3 rounded-lg inline-block"
       >
       </a>
     </section>
@@ -45,13 +40,10 @@
       <div id="productsContainer" class="grid md:grid-cols-3 gap-6"></div>
     </section>
 
-    <!-- SOBRE NOSOTROS -->
-    <section
-      id="aboutSection"
-      class="py-12 px-6 max-w-4xl mx-auto text-center hidden"
-    >
-      <h2 class="text-2xl font-bold mb-4">Sobre Nosotros</h2>
-      <p id="aboutText"></p>
+    <!-- MAPA -->
+    <section id="mapSection" class="py-12 px-6 max-w-5xl mx-auto hidden">
+      <h2 class="text-2xl font-bold text-center mb-6">Dónde Estamos</h2>
+      <div id="map"></div>
     </section>
 
     <!-- INFO -->
@@ -59,8 +51,11 @@
       <h3 class="text-xl font-semibold mb-2">Información</h3>
       <p id="address"></p>
       <p id="hours"></p>
-      <a id="instagramLink" target="_blank" class="text-primary underline"></a>
+      <a id="instagramLink" target="_blank" class="text-blue-600 underline"></a>
     </section>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <script>
       fetch('data.json')
@@ -79,7 +74,7 @@
           heroButton.innerText = data.hero.buttonText;
           heroButton.href = `https://wa.me/${data.business.whatsapp}?text=${encodeURIComponent(data.hero.whatsappMessage)}`;
 
-          // PRODUCTS (sección opcional)
+          // PRODUCTS
           if (data.sections.products) {
             document
               .getElementById('productsSection')
@@ -97,7 +92,7 @@
           <p class="mb-2">${product.description}</p>
           <p class="font-bold mb-4">$${product.price}</p>
           <a target="_blank"
-             class="bg-primary text-white px-4 py-2 rounded inline-block"
+             class="bg-black text-white px-4 py-2 rounded inline-block"
              href="https://wa.me/${data.business.whatsapp}?text=${encodeURIComponent(product.whatsappMessage)}">
              ${product.buttonText}
           </a>
@@ -107,13 +102,26 @@
             });
           }
 
-          // ABOUT (sección opcional)
-          if (data.sections.about) {
-            document.getElementById('aboutSection').classList.remove('hidden');
-            document.getElementById('aboutText').innerText = data.about.text;
+          // MAPA
+          if (data.sections.map) {
+            document.getElementById('mapSection').classList.remove('hidden');
+
+            const map = L.map('map').setView(
+              [data.map.latitude, data.map.longitude],
+              data.map.zoom,
+            );
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              attribution: '&copy; OpenStreetMap contributors',
+            }).addTo(map);
+
+            L.marker([data.map.latitude, data.map.longitude])
+              .addTo(map)
+              .bindPopup(data.business.name)
+              .openPopup();
           }
 
-          // INFO (sección opcional)
+          // INFO
           if (data.sections.info) {
             document.getElementById('infoSection').classList.remove('hidden');
             document.getElementById('address').innerText =
