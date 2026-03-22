@@ -21,7 +21,7 @@
     </style>
   </head>
 
-  <body class="bg-white text-gray-800">
+  <body class="bg-gray-50 text-gray-800">
     <!-- HERO -->
     <section id="heroSection" class="py-16 text-center">
       <h1 id="heroTitle" class="text-3xl md:text-4xl font-bold mb-4"></h1>
@@ -29,7 +29,7 @@
       <a
         id="heroButton"
         target="_blank"
-        class="bg-black text-white px-6 py-3 rounded-lg inline-block"
+        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded inline-block"
       >
       </a>
     </section>
@@ -84,7 +84,8 @@
 
             data.products.forEach((product) => {
               const card = document.createElement('div');
-              card.className = 'border rounded-lg p-4 text-center';
+              card.className =
+                'bg-white border border-gray-100 rounded p-4 text-center shadow-sm transition hover:shadow-md';
 
               const pageUrl = window.location.href;
 
@@ -95,12 +96,12 @@
           <p class="font-bold mb-4">$${product.price}</p>
           <div class="flex flex-col gap-2">
             <a target="_blank"
-              class="bg-black text-white px-4 py-2 rounded inline-block"
+              class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded inline-block"
               href="https://wa.me/${data.business.whatsapp}?text=${encodeURIComponent(product.whatsappMessage)}">
               ${product.buttonText}
             </a>
             <a target="_blank"
-              class="bg-green-500 text-white px-4 py-2 rounded inline-block"
+              class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded inline-block"
               href="https://wa.me/?text=${encodeURIComponent(
                 'Mirá este producto: ' + product.name + ' - ' + pageUrl,
               )}">
