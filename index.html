@@ -82,9 +82,8 @@
 
             const container = document.getElementById('productsContainer');
 
-            data.products.forEach((product, index) => {
+            data.products.forEach((product) => {
               const card = document.createElement('div');
-              card.id = `product-${index}`;
               card.className = 'border rounded-lg p-4 text-center';
 
               const pageUrl = window.location.href;
@@ -103,12 +102,7 @@
             <a target="_blank"
               class="bg-green-500 text-white px-4 py-2 rounded inline-block"
               href="https://wa.me/?text=${encodeURIComponent(
-                'Mirá este producto: ' +
-                  product.name +
-                  ' - ' +
-                  pageUrl +
-                  '#product-' +
-                  index,
+                'Mirá este producto: ' + product.name + ' - ' + pageUrl,
               )}">
               📲 Compartir
             </a>
