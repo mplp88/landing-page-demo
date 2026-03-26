@@ -21,8 +21,8 @@
   },
 
   "hero": {
-    "title": "Lo que te gusta, al mejor precio 💜",
-    "subtitle": "Prendas cómodas, modernas y listas para usar.",
+    "title": "Luna Moda Urbana",
+    "subtitle": "Prendas modernas al mejor precio — pedí por WhatsApp en segundos",
     "buttonText": "Consultar por WhatsApp",
     "whatsappMessage": "Hola! Quiero consultar por las prendas disponibles 😊"
   },
@@ -35,7 +35,7 @@
     {
       "name": "Conjunto Deportivo Soft",
       "description": "Ideal para estar cómoda sin perder estilo.",
-      "price": "22000",
+      "price": "$22000",
       "image": "https://picsum.photos/400/300?random=1",
       "buttonText": "Consultar este conjunto",
       "whatsappMessage": "Hola! Quiero consultar por el Conjunto Deportivo Soft 😊"
@@ -43,7 +43,7 @@
     {
       "name": "Remera Básica Premium",
       "description": "Tela suave, combina con todo.",
-      "price": "9500",
+      "price": "$9500",
       "image": "https://picsum.photos/400/300?random=2",
       "buttonText": "Consultar talle disponible",
       "whatsappMessage": "Hola! Quiero consultar por la Remera Básica Premium 😊"
@@ -51,7 +51,7 @@
     {
       "name": "Jean Wide Leg",
       "description": "Tiro alto, súper cómodo y tendencia.",
-      "price": "28000",
+      "price": "$28000",
       "image": "https://picsum.photos/400/300?random=3",
       "buttonText": "Consultar este jean",
       "whatsappMessage": "Hola! Quiero consultar por el Jean Wide Leg 😊"

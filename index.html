@@ -22,6 +22,19 @@
   </head>
 
   <body class="bg-gray-50 text-gray-800">
+    <header>
+      <select
+        id="theme-selector"
+        class="absolute top-4 right-4 border p-2 rounded"
+      >
+        <option value="black">Premium</option>
+        <option value="blue">Tech</option>
+        <option value="purple">General</option>
+        <option value="red">Comida</option>
+        <option value="green">Saludable</option>
+      </select>
+    </header>
+
     <!-- HERO -->
     <section id="heroSection" class="py-16 text-center">
       <h1 id="heroTitle" class="text-3xl md:text-4xl font-bold mb-4"></h1>
@@ -29,7 +42,7 @@
       <a
         id="heroButton"
         target="_blank"
-        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded inline-block"
+        class="btn bg-black hover:bg-gray-800 text-white px-6 py-3 rounded transition"
       >
       </a>
     </section>
@@ -54,10 +67,47 @@
       <a id="instagramLink" target="_blank" class="text-blue-600 underline"></a>
     </section>
 
+    <footer>
+      <p class="text-sm text-gray-400 text-center mt-10">
+        Sitio web desarrollado por
+        <a href="https://martinponce.com.ar" target="_blank" class="underline">
+          Martín Ponce
+        </a>
+      </p>
+    </footer>
+
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <script>
+      const themes = {
+        black: {
+          primary: 'black',
+          hover: 'gray-800',
+          body: 'bg-gray-50',
+        },
+        blue: {
+          primary: 'blue-600',
+          hover: 'blue-700',
+          body: 'bg-blue-50',
+        },
+        purple: {
+          primary: 'purple-600',
+          hover: 'purple-700',
+          body: 'bg-purple-50',
+        },
+        red: {
+          primary: 'red-600',
+          hover: 'red-700',
+          body: 'bg-gray-50',
+        },
+        green: {
+          primary: 'green-600',
+          hover: 'green-700',
+          body: 'bg-green-50',
+        },
+      };
+
       fetch('data.json')
         .then((res) => res.json())
         .then((data) => {
@@ -90,25 +140,25 @@
               const pageUrl = window.location.href;
 
               card.innerHTML = `
-          <img src="${product.image}" class="w-full h-48 object-cover mb-4 rounded">
-          <h3 class="font-semibold text-lg mb-2">${product.name}</h3>
-          <p class="mb-2">${product.description}</p>
-          <p class="font-bold mb-4">$${product.price}</p>
-          <div class="flex flex-col gap-2">
-            <a target="_blank"
-              class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded inline-block"
-              href="https://wa.me/${data.business.whatsapp}?text=${encodeURIComponent(product.whatsappMessage)}">
-              ${product.buttonText}
-            </a>
-            <a target="_blank"
-              class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded inline-block"
-              href="https://wa.me/?text=${encodeURIComponent(
-                'Mirá este producto: ' + product.name + ' - ' + pageUrl,
-              )}">
-              📲 Compartir
-            </a>
-          </div>
-        `;
+                <img src="${product.image}" class="w-full h-48 object-cover mb-4 rounded">
+                <h3 class="font-semibold text-lg mb-2">${product.name}</h3>
+                <p class="mb-2">${product.description}</p>
+                <p class="font-bold mb-4">${product.price}</p>
+                <div class="flex flex-col gap-2">
+                  <a target="_blank"
+                    class="btn bg-black hover:bg-gray-800 text-white px-6 py-3 rounded transition"
+                    href="https://wa.me/${data.business.whatsapp}?text=${encodeURIComponent(product.whatsappMessage)}">
+                    ${product.buttonText}
+                  </a>
+                  <a target="_blank"
+                    class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded transition"
+                    href="https://wa.me/?text=${encodeURIComponent(
+                      'Mirá este producto: ' + product.name + ' - ' + pageUrl,
+                    )}">
+                    📲 Compartir
+                  </a>
+                </div>
+              `;
 
               container.appendChild(card);
             });
@@ -145,6 +195,26 @@
             insta.href = `https://instagram.com/${data.business.instagramHandle}`;
           }
         });
+
+      const selector = document.getElementById('theme-selector');
+      const buttons = document.getElementsByClassName('btn');
+      console.log(buttons);
+      selector.addEventListener('change', (e) => {
+        const theme = themes[e.target.value];
+
+        // Body
+        document.body.className = `${theme.body} text-gray-800`;
+
+        // Botón
+        for (const button of buttons) {
+          button.className = `
+          btn
+          bg-${theme.primary}
+          hover:bg-${theme.hover}
+          text-white px-6 py-3 rounded transition
+          `;
+        }
+      });
     </script>
   </body>
 </html>
