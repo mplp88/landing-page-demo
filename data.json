@@ -17,7 +17,8 @@
     "products": true,
     "about": true,
     "info": true,
-    "map": true
+    "map": true,
+    "faq": true
   },
 
   "hero": {
@@ -62,5 +63,20 @@
     "latitude": -34.6979282,
     "longitude": -58.5067175,
     "zoom": 15
-  }
+  },
+
+  "faq": [
+    {
+      "question": "¿Cómo puedo hacer un pedido?",
+      "answer": "Simplemente envíanos un mensaje por WhatsApp con el producto que te interesa y te responderemos con toda la información."
+    },
+    {
+      "question": "¿Hacen envíos a todo el país?",
+      "answer": "Sí, realizamos envíos a todo el país. El costo de envío dependerá de tu ubicación."
+    },
+    {
+      "question": "¿Puedo cambiar o devolver un producto?",
+      "answer": "Sí, aceptamos cambios y devoluciones dentro de los 7 días posteriores a la compra, siempre que el producto esté en condiciones originales."
+    }
+  ]
 }

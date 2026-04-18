@@ -53,6 +53,12 @@
       <div id="productsContainer" class="grid md:grid-cols-3 gap-6"></div>
     </section>
 
+    <!-- FAQ -->
+    <section id="faqSection" class="py-12 px-6 max-w-5xl mx-auto hidden">
+      <h2 class="text-2xl font-bold text-center mb-8">Preguntas Frecuentes</h2>
+      <div id="faqContainer" class="space-y-4"></div>
+    </section>
+
     <!-- MAPA -->
     <section id="mapSection" class="py-12 px-6 max-w-5xl mx-auto hidden">
       <h2 class="text-2xl font-bold text-center mb-6">Dónde Estamos</h2>
@@ -66,6 +72,17 @@
       <p id="hours"></p>
       <a id="instagramLink" target="_blank" class="text-blue-600 underline"></a>
     </section>
+
+    <!-- BOTÓN DE WHATSAPP -->
+    <a
+      id="whatsappButton"
+      href="#"
+      target="_blank"
+      class="fixed bottom-5 right-5 z-100 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-all duration-300 transform hover:scale-110"
+    >
+      <!-- Icono WhatsApp -->
+      <img src="img/whatsapp.svg" alt="whatsapp" class="w-6 h-6" />
+    </a>
 
     <footer>
       <p class="text-sm text-gray-400 text-center mt-10">
@@ -133,6 +150,9 @@
           const heroButton = document.getElementById('heroButton');
           heroButton.innerText = data.hero.buttonText;
           heroButton.href = `https://wa.me/${data.business.whatsapp}?text=${encodeURIComponent(data.hero.whatsappMessage)}`;
+
+          const whatsappButton = document.getElementById('whatsappButton');
+          whatsappButton.href = `https://wa.me/${data.business.whatsapp}?text=${encodeURIComponent(data.hero.whatsappMessage)}`;
 
           // PRODUCTS
           if (data.sections.products) {
@@ -203,6 +223,34 @@
             const insta = document.getElementById('instagramLink');
             insta.innerText = `@${data.business.instagramHandle}`;
             insta.href = `https://instagram.com/${data.business.instagramHandle}`;
+          }
+
+          if (data.sections.faq) {
+            document.getElementById('faqSection').classList.remove('hidden');
+            const faqContainer = document.getElementById('faqContainer');
+
+            data.faq.forEach((item) => {
+              const faqItem = document.createElement('div');
+              faqItem.className =
+                'faq-item border border-gray-200 rounded p-4 cursor-pointer transition hover:bg-gray-50';
+
+              faqItem.innerHTML = `
+                <h4 class="font-semibold">${item.question}</h4>
+                <p class="mt-2 text-gray-700 hidden">${item.answer}</p>
+              `;
+
+              faqItem.addEventListener('click', () => {
+                document.querySelectorAll('.faq-item p').forEach((p) => {
+                  if (p !== faqItem.querySelector('p')) {
+                    p.classList.add('hidden');
+                  }
+                });
+                const answer = faqItem.querySelector('p');
+                answer.classList.toggle('hidden');
+              });
+
+              faqContainer.appendChild(faqItem);
+            });
           }
         });
 
