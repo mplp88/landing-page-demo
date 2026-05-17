@@ -83,6 +83,22 @@
       </a>
     </section>
 
+    <!-- FILTROS -->
+    <div class="flex flex-wrap gap-3 justify-center mb-8">
+      <template x-for="category in categories" :key="category">
+        <button
+          @click="selectedCategory = category"
+          class="px-4 py-2 rounded-full border transition"
+          :class="
+            selectedCategory === category
+              ? buttonClass + ' text-white border-transparent'
+              : 'bg-white hover:bg-gray-100'
+          "
+          x-text="category"
+        ></button>
+      </template>
+    </div>
+
     <!-- PRODUCTOS -->
     <section
       x-show="sections.products"
@@ -120,14 +136,51 @@
         x-transition.opacity
         class="grid md:grid-cols-3 gap-6"
       >
-        <template x-for="product in products" :key="product.name">
+        <template x-for="product in filteredProducts" :key="product.name">
           <div
+            x-data="{ currentImage: 0 }"
             class="bg-white border border-gray-100 rounded p-4 text-center shadow-sm transition hover:shadow-md"
           >
-            <img
-              :src="product.image"
-              class="w-full h-48 object-cover mb-4 rounded"
-            />
+            <div class="relative overflow-hidden rounded mb-4">
+              <img
+                :src="product.images[currentImage]"
+                class="w-full h-80 object-cover transition-all duration-300"
+              />
+
+              <!-- BADGE -->
+              <div
+                x-show="product.badge"
+                class="absolute top-3 left-3 bg-black text-white text-xs px-2 py-1 rounded-full"
+                x-text="product.badge"
+              ></div>
+            </div>
+
+            <!-- MINIATURAS -->
+            <div class="flex justify-center gap-2 mb-4">
+              <template x-for="(image, index) in product.images" :key="index">
+                <button
+                  @click="currentImage = index"
+                  class="w-14 h-14 rounded overflow-hidden border-2 transition"
+                  :class="
+                    currentImage === index
+                      ? 'border-black'
+                      : 'border-transparent'
+                  "
+                >
+                  <img :src="image" class="w-full h-full object-cover" />
+                </button>
+              </template>
+            </div>
+
+            <!-- COLORES -->
+            <div class="flex justify-center gap-2 mb-4">
+              <template x-for="color in product.colors" :key="color">
+                <div
+                  class="w-5 h-5 rounded-full border border-gray-300"
+                  :style="`background:${color}`"
+                ></div>
+              </template>
+            </div>
 
             <h3 class="font-semibold text-lg mb-2" x-text="product.name"></h3>
 
@@ -252,6 +305,7 @@
         return {
           loading: true,
           loadingProducts: true,
+          selectedCategory: 'Todos',
 
           // DATA
           business: {},
@@ -308,6 +362,22 @@
 
           get buttonClass() {
             return `${this.currentTheme.primary} ${this.currentTheme.hover}`;
+          },
+
+          get categories() {
+            const categories = this.products.map((p) => p.category);
+
+            return ['Todos', ...new Set(categories)];
+          },
+
+          get filteredProducts() {
+            if (this.selectedCategory === 'Todos') {
+              return this.products;
+            }
+
+            return this.products.filter(
+              (p) => p.category === this.selectedCategory,
+            );
           },
 
           // INIT

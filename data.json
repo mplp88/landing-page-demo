@@ -6,11 +6,11 @@
   },
 
   "business": {
-    "name": "Luna Moda Urbana",
-    "whatsapp": "5491178293958",
-    "address": "Av. Velez Sársfield 1234 - Ciudad Madero",
+    "name": "Lebanz Calzados",
+    "whatsapp": "5491127581696",
+    "address": "Av. Boulogne Sur Mer 1028 - Tapiales",
     "hours": "Lunes a Sábado 10 a 19 hs",
-    "instagramHandle": "lunamodaurbana"
+    "instagramHandle": "levanz.calzados"
   },
 
   "sections": {
@@ -22,47 +22,63 @@
   },
 
   "hero": {
-    "title": "Luna Moda Urbana",
-    "subtitle": "Prendas modernas al mejor precio — pedí por WhatsApp en segundos",
+    "title": "Lebanz Calzados",
+    "subtitle": "Calzados modernos al mejor precio — pedí por WhatsApp en segundos",
     "buttonText": "Consultar por WhatsApp",
-    "whatsappMessage": "Hola! Quiero consultar por las prendas disponibles 😊"
+    "whatsappMessage": "Hola! Quiero consultar por los calzados disponibles 😊"
   },
 
   "about": {
-    "text": "Somos un emprendimiento del barrio que ofrece prendas modernas a precios accesibles. Trabajamos con stock limitado y atención personalizada por WhatsApp."
+    "text": "Somos un emprendimiento del barrio que ofrece calzados modernos a precios accesibles. Trabajamos con stock limitado y atención personalizada por WhatsApp."
   },
 
   "products": [
     {
-      "name": "Conjunto Deportivo Soft",
-      "description": "Ideal para estar cómoda sin perder estilo.",
-      "price": "$22000",
-      "image": "https://picsum.photos/400/300?random=1",
-      "buttonText": "Consultar este conjunto",
-      "whatsappMessage": "Hola! Quiero consultar por el Conjunto Deportivo Soft 😊"
-    },
-    {
-      "name": "Remera Básica Premium",
-      "description": "Tela suave, combina con todo.",
-      "price": "$9500",
-      "image": "https://picsum.photos/400/300?random=2",
+      "name": "Nike Dunk SB Low",
+      "description": "Edicion Especial",
+      "price": "$80000",
+      "images": [
+        "https://i.imgur.com/x0E7ebR.jpg",
+        "https://i.imgur.com/5bPt4Zx.jpg"
+      ],
+      "colors": ["#0066CC", "#FFC0CB"],
+      "badge": "Nuevo",
+      "category": "Zapatillas",
       "buttonText": "Consultar talle disponible",
-      "whatsappMessage": "Hola! Quiero consultar por la Remera Básica Premium 😊"
+      "whatsappMessage": "Hola! Quiero consultar por el Nike Dunk SB Low 😊"
     },
     {
-      "name": "Jean Wide Leg",
-      "description": "Tiro alto, súper cómodo y tendencia.",
-      "price": "$28000",
-      "image": "https://picsum.photos/400/300?random=3",
-      "buttonText": "Consultar este jean",
-      "whatsappMessage": "Hola! Quiero consultar por el Jean Wide Leg 😊"
+      "name": "AIR FORCE 1 LOW '07",
+      "description": "Talles del 38 al 43",
+      "price": "$70000",
+      "images": [
+        "https://i.imgur.com/2fF74EO.jpg",
+        "https://i.imgur.com/r4NnxWw.jpg"
+      ],
+      "colors": ["#ffffff", "#33AA33"],
+      "category": "Zapatillas",
+      "buttonText": "Consultar talle disponible",
+      "whatsappMessage": "Hola! Quiero consultar por la AIR FORCE 1 LOW '07 😊"
+    },
+    {
+      "name": "Nike Tiempo",
+      "description": "Talles del 38 al 43",
+      "price": "$50000",
+      "images": [
+        "https://i.imgur.com/7ifuKtR.jpg",
+        "https://i.imgur.com/WqlfhXv.jpg"
+      ],
+      "colors": ["#8A36D2", "#ffffff"],
+      "category": "Botines",
+      "buttonText": "Consultar talle disponible",
+      "whatsappMessage": "Hola! Quiero consultar por el Nike Tiempo 😊"
     }
   ],
 
   "map": {
-    "latitude": -34.6979282,
-    "longitude": -58.5067175,
-    "zoom": 15
+    "latitude": -34.69530799534696,
+    "longitude": -58.51042522165542,
+    "zoom": 16
   },
 
   "faq": [
