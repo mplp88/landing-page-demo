@@ -15,7 +15,6 @@
 
   "sections": {
     "products": true,
-    "about": true,
     "info": true,
     "map": true,
     "faq": true
@@ -38,8 +37,8 @@
       "description": "Edicion Especial",
       "price": "$80000",
       "images": [
-        "https://i.imgur.com/x0E7ebR.jpg",
-        "https://i.imgur.com/5bPt4Zx.jpg"
+        "https://i.imgur.com/x0E7ebR.jpeg",
+        "https://i.imgur.com/5bPt4Zx.jpeg"
       ],
       "colors": ["#0066CC", "#FFC0CB"],
       "badge": "Nuevo",
@@ -52,8 +51,8 @@
       "description": "Talles del 38 al 43",
       "price": "$70000",
       "images": [
-        "https://i.imgur.com/2fF74EO.jpg",
-        "https://i.imgur.com/r4NnxWw.jpg"
+        "https://i.imgur.com/2fF74EO.jpeg",
+        "https://i.imgur.com/r4NnxWw.jpeg"
       ],
       "colors": ["#ffffff", "#33AA33"],
       "category": "Zapatillas",
@@ -65,8 +64,8 @@
       "description": "Talles del 38 al 43",
       "price": "$50000",
       "images": [
-        "https://i.imgur.com/7ifuKtR.jpg",
-        "https://i.imgur.com/WqlfhXv.jpg"
+        "https://i.imgur.com/7ifuKtR.jpeg",
+        "https://i.imgur.com/WqlfhXv.jpeg"
       ],
       "colors": ["#8A36D2", "#ffffff"],
       "category": "Botines",
