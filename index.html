@@ -7,7 +7,7 @@
     <title x-text="business.name || 'Tienda'"></title>
 
     <!-- Tailwind -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <!-- Alpine -->
     <script
@@ -54,6 +54,14 @@
     </div>
     <!-- HEADER -->
     <header class="relative">
+      <!-- CONFIG BUTTON -->
+      <button
+        @click="sidebarOpen = true"
+        class="fixed top-4 right-4 z-50 bg-white shadow-lg border border-gray-200 w-12 h-12 rounded-full flex items-center justify-center hover:scale-105 transition"
+      >
+        ⚙️
+      </button>
+      <!--
       <select
         x-model="selectedTheme"
         @change="applyTheme"
@@ -65,7 +73,127 @@
         <option value="red">Comida</option>
         <option value="green">Saludable</option>
       </select>
+      -->
     </header>
+    <!-- OVERLAY -->
+    <div
+      x-show="sidebarOpen"
+      x-transition.opacity
+      @click="sidebarOpen = false"
+      class="fixed inset-0 bg-black/40 z-40"
+    ></div>
+
+    <!-- SIDEBAR -->
+    <aside
+      x-show="sidebarOpen"
+      x-transition:enter="transition ease-out duration-300"
+      x-transition:enter-start="translate-x-full"
+      x-transition:enter-end="translate-x-0"
+      x-transition:leave="transition ease-in duration-200"
+      x-transition:leave-start="translate-x-0"
+      x-transition:leave-end="translate-x-full"
+      class="fixed top-0 right-0 h-full w-[320px] bg-white shadow-2xl z-50 overflow-y-auto"
+    >
+      <!-- HEADER -->
+      <div class="flex items-center justify-between px-5 py-4 border-b">
+        <h2 class="text-lg font-bold">Personalizar</h2>
+
+        <button
+          @click="sidebarOpen = false"
+          class="text-gray-500 hover:text-black text-xl"
+        >
+          ✕
+        </button>
+      </div>
+
+      <!-- CONTENT -->
+      <div class="p-5 space-y-8">
+        <!-- TEMAS -->
+        <div>
+          <h3 class="font-semibold mb-3">Tema</h3>
+
+          <div class="grid grid-cols-2 gap-3">
+            <template x-for="(theme, key) in themes" :key="key">
+              <button
+                @click="selectedTheme = key"
+                class="border rounded-xl p-3 transition text-left hover:shadow"
+                :class="
+              selectedTheme === key
+                ? 'border-black ring-2 ring-black'
+                : 'border-gray-200'
+            "
+              >
+                <div
+                  class="w-full h-10 rounded mb-2"
+                  :class="theme.primary"
+                ></div>
+
+                <p
+                  class="text-sm font-medium capitalize"
+                  x-text="theme.name"
+                ></p>
+              </button>
+            </template>
+          </div>
+        </div>
+
+        <!-- SECCIONES -->
+        <div>
+          <h3 class="font-semibold mb-3">Secciones</h3>
+
+          <div class="space-y-3">
+            <template x-for="(enabled, section) in sections" :key="section">
+              <label
+                class="flex items-center justify-between border rounded-xl p-3 cursor-pointer hover:bg-gray-50"
+              >
+                <div>
+                  <p
+                    class="font-medium capitalize"
+                    x-text="formatSectionName(section)"
+                  ></p>
+
+                  <p class="text-xs text-gray-500">Mostrar sección</p>
+                </div>
+
+                <!-- TOGGLE -->
+                <button
+                  type="button"
+                  @click="sections[section] = !sections[section]"
+                  class="relative w-12 h-6 rounded-full transition"
+                  :class="
+            sections[section]
+              ? currentTheme.primary
+              : 'bg-gray-300'
+          "
+                >
+                  <span
+                    class="absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition"
+                    :class="
+              sections[section]
+                ? 'translate-x-6'
+                : ''
+            "
+                  ></span>
+                </button>
+              </label>
+            </template>
+          </div>
+        </div>
+
+        <!-- FUTURAS OPCIONES -->
+        <div>
+          <h3 class="font-semibold mb-3">Próximamente</h3>
+
+          <div class="space-y-2 text-sm text-gray-600">
+            <div class="border rounded-lg p-3">✓ Cambiar tipografía</div>
+
+            <div class="border rounded-lg p-3">✓ Cambiar estilo de botones</div>
+
+            <div class="border rounded-lg p-3">✓ Banner promocional</div>
+          </div>
+        </div>
+      </div>
+    </aside>
 
     <!-- HERO -->
     <section class="py-16 text-center px-6">
@@ -304,6 +432,7 @@
           loading: true,
           loadingProducts: true,
           selectedCategory: 'Todos',
+          sidebarOpen: false,
 
           // DATA
           business: {},
@@ -324,30 +453,35 @@
 
           themes: {
             black: {
+              name: 'Premium',
               primary: 'bg-black',
               hover: 'hover:bg-gray-800',
               body: 'bg-gray-50',
             },
 
             blue: {
+              name: 'Tech',
               primary: 'bg-blue-600',
               hover: 'hover:bg-blue-700',
               body: 'bg-blue-50',
             },
 
             purple: {
+              name: 'General',
               primary: 'bg-purple-600',
               hover: 'hover:bg-purple-700',
               body: 'bg-purple-50',
             },
 
             red: {
+              name: 'Comida',
               primary: 'bg-red-600',
               hover: 'hover:bg-red-700',
               body: 'bg-gray-50',
             },
 
             green: {
+              name: 'Saludable',
               primary: 'bg-green-600',
               hover: 'hover:bg-green-700',
               body: 'bg-green-50',
@@ -418,6 +552,17 @@
             return `https://wa.me/?text=${encodeURIComponent(
               'Mirá este producto: ' + product.name + ' - ' + pageUrl,
             )}`;
+          },
+
+          formatSectionName(section) {
+            const names = {
+              products: 'Productos',
+              info: 'Información',
+              map: 'Mapa',
+              faq: 'Preguntas Frecuentes',
+            };
+
+            return names[section] || section;
           },
 
           // FAQ
