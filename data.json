@@ -7,7 +7,7 @@
 
   "business": {
     "name": "Luna Moda Urbana",
-    "whatsapp": "5491165035037",
+    "whatsapp": "5491178293958",
     "address": "Av. Velez Sársfield 1234 - Ciudad Madero",
     "hours": "Lunes a Sábado 10 a 19 hs",
     "instagramHandle": "lunamodaurbana"
@@ -37,7 +37,9 @@
       "name": "Conjunto Deportivo Soft",
       "description": "Ideal para estar cómoda sin perder estilo.",
       "price": "$22000",
-      "image": "https://picsum.photos/400/300?random=1",
+      "images": ["https://picsum.photos/400/300?random=1"],
+      "colors": ["#FFC0CB", "#000000"],
+      "category": "Conjuntos",
       "buttonText": "Consultar este conjunto",
       "whatsappMessage": "Hola! Quiero consultar por el Conjunto Deportivo Soft 😊"
     },
@@ -45,7 +47,9 @@
       "name": "Remera Básica Premium",
       "description": "Tela suave, combina con todo.",
       "price": "$9500",
-      "image": "https://picsum.photos/400/300?random=2",
+      "images": ["https://picsum.photos/400/300?random=2"],
+      "colors": ["#000000", "#FFFFFF"],
+      "category": "Remeras",
       "buttonText": "Consultar talle disponible",
       "whatsappMessage": "Hola! Quiero consultar por la Remera Básica Premium 😊"
     },
@@ -53,7 +57,9 @@
       "name": "Jean Wide Leg",
       "description": "Tiro alto, súper cómodo y tendencia.",
       "price": "$28000",
-      "image": "https://picsum.photos/400/300?random=3",
+      "images": ["https://picsum.photos/400/300?random=3"],
+      "colors": ["#6699CC", "#FFFFFF"],
+      "category": "Jeans",
       "buttonText": "Consultar este jean",
       "whatsappMessage": "Hola! Quiero consultar por el Jean Wide Leg 😊"
     }
