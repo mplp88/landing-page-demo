@@ -15,7 +15,6 @@
 
   "sections": {
     "products": true,
-    "about": true,
     "info": true,
     "map": true,
     "faq": true
