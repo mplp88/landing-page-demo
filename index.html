@@ -137,6 +137,48 @@
           </div>
         </div>
 
+        <!-- PRODUCTOS -->
+        <div>
+          <h3 class="font-semibold mb-3">Productos</h3>
+
+          <div class="space-y-4">
+            <!-- COLUMNAS MOBILE -->
+            <div>
+              <p class="text-sm font-medium mb-2">
+                Productos por fila (celulares)
+              </p>
+
+              <div class="flex gap-2">
+                <!-- 1 -->
+                <button
+                  @click="mobileColumns = 1"
+                  class="flex-1 border rounded-xl p-3 transition"
+                  :class="
+            mobileColumns === 1
+              ? buttonClass + ' text-white border-transparent'
+              : 'bg-white hover:bg-gray-100'
+          "
+                >
+                  1 por fila
+                </button>
+
+                <!-- 2 -->
+                <button
+                  @click="mobileColumns = 2"
+                  class="flex-1 border rounded-xl p-3 transition"
+                  :class="
+            mobileColumns === 2
+              ? buttonClass + ' text-white border-transparent'
+              : 'bg-white hover:bg-gray-100'
+          "
+                >
+                  2 por fila
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- SECCIONES -->
         <div>
           <h3 class="font-semibold mb-3">Secciones</h3>
@@ -177,6 +219,32 @@
                 </button>
               </label>
             </template>
+            <label
+              class="flex items-center justify-between border rounded-xl p-3 cursor-pointer hover:bg-gray-50"
+            >
+              <div>
+                <p class="font-medium capitalize">Botón Compartir</p>
+
+                <p class="text-xs text-gray-500">Mostrar</p>
+              </div>
+
+              <!-- TOGGLE -->
+              <button
+                type="button"
+                @click="shareButton = !shareButton"
+                class="relative w-12 h-6 rounded-full transition"
+                :class="currentTheme.primary"
+              >
+                <span
+                  class="absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition"
+                  :class="
+                    shareButton
+                      ? 'translate-x-6'
+                      : ''
+                  "
+                ></span>
+              </button>
+            </label>
           </div>
         </div>
 
@@ -220,7 +288,7 @@
       <h2 class="text-2xl font-bold text-center mb-8">Productos Destacados</h2>
 
       <!-- SKELETON -->
-      <div x-show="loadingProducts" class="grid md:grid-cols-3 gap-6">
+      <div x-show="loadingProducts" :class="productGridClass">
         <template x-for="i in 3" :key="i">
           <div
             class="bg-white border border-gray-100 rounded p-4 shadow-sm animate-pulse"
@@ -251,25 +319,77 @@
               @click="selectedCategory = category"
               class="px-4 py-2 rounded-full border transition"
               :class="
-            selectedCategory === category
-              ? buttonClass + ' text-white border-transparent'
-              : 'bg-white hover:bg-gray-100'
-          "
+              selectedCategory === category
+                ? buttonClass + ' text-white border-transparent'
+                : 'bg-white hover:bg-gray-100'
+              "
               x-text="category"
             ></button>
           </template>
         </div>
-        <div class="grid md:grid-cols-3 gap-6">
+        <div :class="productGridClass">
           <template x-for="product in filteredProducts" :key="product.name">
             <div
-              x-data="{ currentImage: 0 }"
+              x-data="{
+                currentImage: 0,
+                startX: 0,
+
+                next(images) {
+                  this.currentImage =
+                    (this.currentImage + 1) % images.length;
+                },
+
+                prev(images) {
+                  this.currentImage =
+                    (this.currentImage - 1 + images.length) %
+                    images.length;
+                },
+
+                handleTouchStart(e) {
+                  this.startX = e.touches[0].clientX;
+                },
+
+                handleTouchEnd(e, images) {
+                  const endX = e.changedTouches[0].clientX;
+                  const diff = this.startX - endX;
+
+                  if (diff > 50) {
+                    this.next(images);
+                  }
+
+                  if (diff < -50) {
+                    this.prev(images);
+                  }
+                }
+              }"
               class="bg-white border border-gray-100 rounded p-4 text-center shadow-sm transition hover:shadow-md"
+              :id="product.name"
             >
-              <div class="relative overflow-hidden rounded mb-4">
+              <div
+                class="relative overflow-hidden rounded mb-4"
+                @touchstart="handleTouchStart($event)"
+                @touchend="handleTouchEnd($event, getProductImages(product))"
+              >
+                <button
+                  x-show="getProductImages(product).length > 1"
+                  @click="prev(getProductImages(product))"
+                  class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 text-white backdrop-blur flex items-center justify-center"
+                >
+                  <
+                </button>
+                <button
+                  x-show="getProductImages(product).length > 1"
+                  @click="next(getProductImages(product))"
+                  class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 text-white backdrop-blur flex items-center justify-center"
+                >
+                  >
+                </button>
                 <img
                   loading="lazy"
-                  :src="product.images[currentImage]"
-                  class="w-full h-80 object-cover transition-all duration-300"
+                  :src="getProductImages(product)[currentImage]"
+                  :class="productImageClass"
+                  class="w-full object-cover transition-all duration-300 select-none"
+                  draggable="false"
                 />
 
                 <!-- BADGE -->
@@ -280,36 +400,26 @@
                 ></div>
               </div>
 
-              <!-- MINIATURAS -->
-              <div class="flex justify-center gap-2 mb-4">
-                <template x-for="(image, index) in product.images" :key="index">
-                  <button
-                    @click="currentImage = index"
-                    class="w-14 h-14 rounded overflow-hidden border-2 transition"
-                    :class="
-                    currentImage === index
-                      ? 'border-black'
-                      : 'border-transparent'
-                  "
-                  >
-                    <img :src="image" class="w-full h-full object-cover" />
-                  </button>
-                </template>
-              </div>
-
               <!-- COLORES -->
               <div class="flex justify-center gap-2 mb-4">
                 <template x-for="color in product.colors" :key="color">
                   <div
                     class="w-5 h-5 rounded-full border border-gray-300"
                     :style="`background:${color}`"
+                    @click="currentImage = product.colors.indexOf(color) || 0"
                   ></div>
                 </template>
               </div>
 
-              <h3 class="font-semibold text-lg mb-2" x-text="product.name"></h3>
+              <h3
+                class="font-semibold sm:text-base md:text-lg mb-2"
+                x-text="product.name"
+              ></h3>
 
-              <p class="mb-2" x-text="product.description"></p>
+              <p
+                class="sm:text-sm md:text-base mb-2"
+                x-text="product.description"
+              ></p>
 
               <p class="font-bold mb-4" x-text="product.price"></p>
 
@@ -327,8 +437,9 @@
                   target="_blank"
                   class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded transition"
                   :href="shareProduct(product)"
+                  x-show="shareButton"
                 >
-                  📲 Compartir
+                  Compartir
                 </a>
               </div>
             </div>
@@ -433,6 +544,8 @@
           loadingProducts: true,
           selectedCategory: 'Todos',
           sidebarOpen: false,
+          shareButton: true,
+          mobileColumns: 2,
 
           // DATA
           business: {},
@@ -512,6 +625,18 @@
             );
           },
 
+          get productGridClass() {
+            return this.mobileColumns === 2
+              ? 'grid grid-cols-2 md:grid-cols-3 gap-1'
+              : 'grid grid-cols-1 md:grid-cols-3 gap-1';
+          },
+
+          get productImageClass() {
+            return this.mobileColumns === 2
+              ? 'w-full h-32 md:h-80 object-cover rounded'
+              : 'w-full h-80 object-cover rounded';
+          },
+
           // INIT
           async init() {
             const response = await fetch('data.json');
@@ -547,7 +672,7 @@
           },
 
           shareProduct(product) {
-            const pageUrl = window.location.href;
+            const pageUrl = `${window.location.href}#${encodeURIComponent(product.name)}`;
 
             return `https://wa.me/?text=${encodeURIComponent(
               'Mirá este producto: ' + product.name + ' - ' + pageUrl,
@@ -592,6 +717,14 @@
               [this.mapData.latitude, this.mapData.longitude],
               this.mapData.zoom,
             );
+          },
+
+          getProductImages(product) {
+            return product.images || [];
+          },
+
+          isCompactMobile() {
+            return this.mobileColumns === 2;
           },
 
           // THEME
